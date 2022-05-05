@@ -1,12 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import PokemonList from './PokemonList'
-
+import {Route,Routes} from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <PokemonList class="poke-list-container"/>
+      <Routes>
+        <Route path="/pokemons" element={<PokemonList class="poke-list-container"/>}></Route>
+      </Routes>
+      
     </div>
   );
 }

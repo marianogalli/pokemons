@@ -17,8 +17,9 @@ export default function PokemonCard(props) {
 
     return (
         
-        <Col lg={3} md={6} sm={12} className=" d-flex align-items-stretch">
+        <Col lg="auto" md="auto" sm="auto" className="d-flex align-items-stretch">
             <Card
+                className="margin-top"
                 style={{ width: '18rem' }}>          
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>

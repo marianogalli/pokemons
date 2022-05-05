@@ -6,7 +6,8 @@ import PokemonCard from './PokemonCard'
 export default function PokemonList(){
 
     const [apiData,setApiData]=useState({});   
-    const [pokemons,setPokemons]=useState([]) 
+    const [pokemons,setPokemons]=useState([]);
+    const [pages,setPages]=useState([]);
 
     useEffect(()=>{
 
@@ -14,10 +15,20 @@ export default function PokemonList(){
             .then(data=>{
                 setApiData(data.data);
                 setPokemons(data.data.results);
+
+                let countPages=Math.ceil(data.data.count/20);
+                console.log(countPages)
+                const arrayPages=[];
+
+                for (let i=1; i<=countPages; i++){
+                    arrayPages.push(i);
+                }
+
+                setPages(arrayPages)
             })   
     },[])
 
-    const updatePokemons=(e)=>{
+    const changePage=(e)=>{
         
         //get url: prev or next
         const param=e.target.value;
@@ -31,19 +42,32 @@ export default function PokemonList(){
             })      
     }
 
-
     return(
         <>
             <Container>
-                <Row>
+                <Row class="pokemon-row mt-2">
                     {
                         pokemons.map(p=> <PokemonCard pokemons={pokemons} url={p.url} name={p.name}/>)
                     }
                 </Row>
-                <div className='mb-2'>
-                    <Button variant='dark' onClick={updatePokemons} value="previous" >Previous</Button>
-                    <Button value="next" onClick={updatePokemons}  variant='dark'>Next</Button>
+                <div className='mb-2 margin-top'>
+                    <Button variant='dark' className="margin-right" onClick={changePage} value="previous" >Previous</Button>
+                    <Button value="next" className="margin-right" onClick={changePage}  variant='dark'>Next</Button>
                 </div>
+
+                <div className="margin-top overflow-auto">
+                    <ul className="list-group list-group-horizontal-sm">
+                        {
+                            pages.map(n=>{
+                                return(
+                                <li class="list-group-item">{n}</li> 
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
+                
+                
             </Container>
         </>
     )
