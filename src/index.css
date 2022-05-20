@@ -21,3 +21,13 @@ code {
 .margin-right{
   margin-right:15px;
 }
+
+.pagination{
+  justify-content: center;
+  color: white;
+}
+
+
+.center{
+  margin:0,auto;
+}

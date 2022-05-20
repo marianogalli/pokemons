@@ -8,10 +8,11 @@ export default function PokemonList(){
     const [apiData,setApiData]=useState({});   
     const [pokemons,setPokemons]=useState([]);
     const [pages,setPages]=useState([]);
+    const [currentPage,setCurrentPage]=useState(1);
 
     useEffect(()=>{
 
-        axios.get('https://pokeapi.co/api/v2/pokemon?offset=20&limit=20')
+        axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20')
             .then(data=>{
                 setApiData(data.data);
                 setPokemons(data.data.results);
@@ -25,14 +26,16 @@ export default function PokemonList(){
                 }
 
                 setPages(arrayPages)
+                setCurrentPage(1);
             })   
     },[])
 
-    const changePage=(e)=>{
+    const changePage=(e)=>{     
         
         //get url: prev or next
         const param=e.target.value;
-        
+        updateCurrentPage(param);
+
         const url=apiData[param];
         
         axios.get(url)
@@ -42,10 +45,22 @@ export default function PokemonList(){
             })      
     }
 
+    const updateCurrentPage=(param)=>{
+
+        if(param=="next"){
+            if(currentPage<pages.length)
+                setCurrentPage(currentPage+1)
+        }            
+        else{
+            if(currentPage>1)
+                setCurrentPage(currentPage-1)
+        }   
+    }
+
     return(
         <>
             <Container>
-                <Row class="pokemon-row mt-2">
+                <Row class="pokemon-row mt-2 center-row">
                     {
                         pokemons.map(p=> <PokemonCard pokemons={pokemons} url={p.url} name={p.name}/>)
                     }
@@ -54,20 +69,9 @@ export default function PokemonList(){
                     <Button variant='dark' className="margin-right" onClick={changePage} value="previous" >Previous</Button>
                     <Button value="next" className="margin-right" onClick={changePage}  variant='dark'>Next</Button>
                 </div>
-
                 <div className="margin-top overflow-auto">
-                    <ul className="list-group list-group-horizontal-sm">
-                        {
-                            pages.map(n=>{
-                                return(
-                                <li class="list-group-item">{n}</li> 
-                                )
-                            })
-                        }
-                    </ul>
+                    <p class="pagination">Página {currentPage} de {pages.length}</p>
                 </div>
-                
-                
             </Container>
         </>
     )
