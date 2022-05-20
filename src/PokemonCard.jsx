@@ -14,9 +14,7 @@ export default function PokemonCard(props) {
             })
     },[pokemons])
 
-
-    return (
-        
+    return (        
         <Col lg="auto" md="auto" sm="auto" className="d-flex align-items-stretch">
             <Card
                 className="margin-top"
@@ -30,7 +28,6 @@ export default function PokemonCard(props) {
                     </Card.Text>
                 </Card.Body>
             </Card>
-        </Col>
-        
+        </Col>        
     )
 }

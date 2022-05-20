@@ -4,14 +4,12 @@ import {Col,Container,Row,Button} from 'react-bootstrap'
 import PokemonCard from './PokemonCard'
 
 export default function PokemonList(){
-
     const [apiData,setApiData]=useState({});   
     const [pokemons,setPokemons]=useState([]);
     const [pages,setPages]=useState([]);
     const [currentPage,setCurrentPage]=useState(1);
 
     useEffect(()=>{
-
         axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20')
             .then(data=>{
                 setApiData(data.data);
@@ -30,12 +28,10 @@ export default function PokemonList(){
             })   
     },[])
 
-    const changePage=(e)=>{     
-        
+    const changePage=(e)=>{
         //get url: prev or next
         const param=e.target.value;
         updateCurrentPage(param);
-
         const url=apiData[param];
         
         axios.get(url)
@@ -46,7 +42,6 @@ export default function PokemonList(){
     }
 
     const updateCurrentPage=(param)=>{
-
         if(param=="next"){
             if(currentPage<pages.length)
                 setCurrentPage(currentPage+1)
@@ -54,7 +49,7 @@ export default function PokemonList(){
         else{
             if(currentPage>1)
                 setCurrentPage(currentPage-1)
-        }   
+        }  
     }
 
     return(
