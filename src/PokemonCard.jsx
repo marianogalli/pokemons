@@ -28,13 +28,10 @@ export default function PokemonCard(props) {
                         Some quick example text to build on the card title and make up the bulk
                         of the card's content.
                     </Card.Text>
-                    <Button variant="primary" onClick={handleShow}>View Info</Button>
+                    <Button variant="primary" onClick={()=>handleShow(url)}>View Info</Button>
                 </Card.Body>
             </Card>                
         </Col> 
-
-        
-        
         </>    
     )
 }

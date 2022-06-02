@@ -11,6 +11,7 @@ export default function PokemonList(){
     const [pages,setPages]=useState([]);
     const [currentPage,setCurrentPage]=useState(1);
     const [show,setShow]=useState(false);
+    const [urlPokemonSelected,setUrlPokemonSelected]=useState();
 
     useEffect(()=>{
         axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=20')
@@ -55,7 +56,8 @@ export default function PokemonList(){
         }  
     }
 
-    const handleShow=()=>{
+    const handleShow=(url)=>{
+        setUrlPokemonSelected(url);
         setShow(true);
     }
 
@@ -79,7 +81,7 @@ export default function PokemonList(){
                 <p class="pagination">Página {currentPage} de {pages.length}</p>
             </div>
 
-            <InfoModal show={show} handleClose={handleClose}/>
+            <InfoModal show={show} handleClose={handleClose} pokemonSelected={urlPokemonSelected}/>
             
         </Container>
 
